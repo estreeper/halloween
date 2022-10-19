@@ -1,0 +1,12 @@
+# Standardize stuff, to see how to support in your editor and to get more
+# information visit: http://EditorConfig.org
+
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+[*.md]
+max_line_length = 80
