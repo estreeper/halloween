@@ -54,6 +54,15 @@ void loop() {
   cycleRandom(7);
 }
 
+void setAll(CRGB color) {
+  FastLED.clear();
+  for (int i = 0; i < SPIRAL_LENGTH; i++) {
+    *astrand[i] = color;
+    *bstrand[i] = color;
+  }
+  FastLED.show();
+}
+
 void cycleRandom(int delayMS) {
   for (int i = 0; i < SPIRAL_LENGTH; i++) {
     int r = random(0, 255);
