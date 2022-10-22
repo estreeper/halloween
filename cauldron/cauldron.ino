@@ -29,6 +29,10 @@ void setup() {
   FastLED.addLeds<WS2811, ASTRAND_DATA_PIN>(a_physical_strand, ASTRAND_TOTAL_LEN + 1);
   FastLED.addLeds<WS2811, BSTRAND_DATA_PIN>(b_physical_strand, BSTRAND_TOTAL_LEN + 1);
 
+  // This will logically offset (by the number of null pixels) and reverse the
+  // lights, so the physical end of the strand will be stored in astrand and
+  // bstrand as index 0. This way the lights will "start" within the cauldron,
+  // and continue up to the ceiling.
   populate_astrand();
   populate_bstrand();
 }
@@ -47,7 +51,22 @@ void populate_bstrand() {
 
 // put your main code here, to run repeatedly:
 void loop() {
-  cycle(CRGB(130, 0, 255), 3);
+  cycleRandom(7);
+}
+
+void cycleRandom(int delayMS) {
+  for (int i = 0; i < SPIRAL_LENGTH; i++) {
+    int r = random(0, 255);
+    int g = random(0, 255);
+    int b = random(0, 255);
+
+    *astrand[i] = CRGB(r, g, b);
+    *bstrand[i] = CRGB(r, g, b);
+
+    FastLED.show();
+    delay(delayMS);
+  }
+  FastLED.clear();
 }
 
 void cycle(CRGB color, int delayMS) {
